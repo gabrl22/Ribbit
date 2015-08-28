@@ -4,11 +4,13 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,14 +28,19 @@ public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.user_name_field)EditText mUserName;
     @Bind(R.id.password_field)EditText mPassword;
     @Bind(R.id.sign_label)TextView mToSignUp;
+    @Bind(R.id.progressBar)ProgressBar mProgressBar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+
         setContentView(R.layout.activity_login);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.appbar);
+        setSupportActionBar(toolbar);
         ButterKnife.bind(this);
+        mProgressBar.setVisibility(View.INVISIBLE);
 
         /*mToSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,12 +73,14 @@ public class LoginActivity extends AppCompatActivity {
         }
         else{
             //Login
-            setSupportProgressBarIndeterminateVisibility(true);
+
+            mProgressBar.setVisibility(View.VISIBLE);
             ParseUser.logInInBackground(userName, password, new LogInCallback() {
                 @Override
                 public void done(ParseUser parseUser, ParseException e) {
                     //setProgressBarIndeterminateVisibility(false);
-                    setSupportProgressBarIndeterminateVisibility(false);
+                    mProgressBar.setVisibility(View.INVISIBLE);
+
                     if (e == null) {
                         //Succesfull
                         Intent intent = new  Intent(LoginActivity.this, MainActivity.class);
