@@ -1,5 +1,6 @@
 package com.example.gabriel.ribbit;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -7,40 +8,48 @@ import android.support.v4.app.FragmentPagerAdapter;
 /**
  * Created by Gabriel on 8/27/15.
  */
-public class MiFragmentPagerAdapter extends FragmentPagerAdapter {
-    final int PAGE_COUNT = 2;
-    private String tabTitles[] =
-            new String[] { "Tab Uno", "Tab Dos"};
 
-    public MiFragmentPagerAdapter(FragmentManager fm) {
-        super(fm);
+//Adapatador para los tabs
+public class MiFragmentPagerAdapter extends FragmentPagerAdapter {
+    
+    protected Context mContext;
+
+    final int PAGE_COUNT = 2;//El numero de tabs que habra
+    private String mTabTitles[];//Los titulos de los tabs
+
+    public MiFragmentPagerAdapter(Context context, FragmentManager fragmentManager) {
+        //Le tengo que pasar el contexto a la aplicacion para poder usar los resources
+        super(fragmentManager);
+        mContext = context;
+        mTabTitles = new String[] { mContext.getString(R.string.inbox_tab), mContext.getString(R.string.friends_tab)};
     }
 
     @Override
     public int getCount() {
         return PAGE_COUNT;
+        //Regresa la cantidad de tabs
     }
 
     @Override
     public Fragment getItem(int position) {
 
-        Fragment f = null;
+        Fragment fragment = null;
 
         switch(position) {
             case 0:
-                f = Fragment1.newInstance();
+                fragment = InboxFragment.newInstance();
                 break;
             case 1:
-                f = Fragment2.newInstance();
+                fragment = FriendsFragment.newInstance();
                 break;
         }
 
-        return f;
+        return fragment;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         // Generate title based on item position
-        return tabTitles[position];
+        return mTabTitles[position];
     }
 }

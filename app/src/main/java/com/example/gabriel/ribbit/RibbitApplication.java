@@ -18,6 +18,5 @@ public class RibbitApplication extends Application{
         Parse.initialize(this, "xASTd4yuL6FSRkmprkGYUg95D6Xgmpim2kvDsyWA"
                 , "X4sekSCvA9CKWgjkr1pNO83qxtMGtN9e9WFbZPS5");
 
-
     }
 }

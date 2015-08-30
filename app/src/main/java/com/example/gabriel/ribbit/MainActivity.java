@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity  {
         Toolbar toolbar = (Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(toolbar);
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        viewPager.setAdapter(new MiFragmentPagerAdapter(
+        viewPager.setAdapter(new MiFragmentPagerAdapter(MainActivity.this,
                 getSupportFragmentManager()));
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.appbartabs);
@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity  {
         else {
             Log.i(TAG, currentUser.toString());
         }
-
 
     }
 
@@ -105,11 +104,5 @@ public class MainActivity extends AppCompatActivity  {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
-
-
-
 
 }

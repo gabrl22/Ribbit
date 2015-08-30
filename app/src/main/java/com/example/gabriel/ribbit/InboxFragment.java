@@ -2,6 +2,7 @@ package com.example.gabriel.ribbit;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +10,14 @@ import android.view.ViewGroup;
 /**
  * Created by Gabriel on 8/27/15.
  */
-public class Fragment2 extends Fragment {
+public class InboxFragment extends ListFragment {
 
-    public static Fragment2 newInstance() {
-        Fragment2 fragment = new Fragment2();
+    public static InboxFragment newInstance() {
+        InboxFragment fragment = new InboxFragment();
         return fragment;
     }
 
-    public Fragment2() {
+    public InboxFragment() {
         // Required empty public constructor
     }
 
@@ -29,7 +30,8 @@ public class Fragment2 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment2, container, false);
+        View rootView = inflater.inflate(R.layout.inbox_fragment, container, false);
+        return rootView;
     }
 
 

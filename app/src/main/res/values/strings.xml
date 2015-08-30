@@ -21,4 +21,8 @@
     <string name="sign_error_title">Opps!</string>
     <string name="login_up_error_message">Please make sure your enter all the information</string>
     <string name="login_error_title">Opps!</string>
+    <string name="inbox_tab">Inbox</string>
+    <string name="friends_tab">Friends</string>
+    <string name="empty_inbox_label">No inbox</string>
+    <string name="empty_friends_label">No friends added</string>
 </resources>

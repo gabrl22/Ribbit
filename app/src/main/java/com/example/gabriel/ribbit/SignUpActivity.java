@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ public class SignUpActivity extends AppCompatActivity {
     @Bind(R.id.user_name_field)EditText mUserName;
     @Bind(R.id.password_field)EditText mPassword;
     @Bind(R.id.email_field)EditText mEmail;
+    @Bind(R.id.progressBar)ProgressBar mProgressBar;
 
 
     @Override
@@ -36,6 +38,7 @@ public class SignUpActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        mProgressBar.setVisibility(View.INVISIBLE);
 
     }
 
@@ -57,6 +60,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
         else{
             //create the new user
+            mProgressBar.setVisibility(View.VISIBLE);
             ParseUser newUser = new ParseUser();
             newUser.setUsername(userName);
             newUser.setPassword(password);
@@ -68,6 +72,7 @@ public class SignUpActivity extends AppCompatActivity {
                     if(e == null){
                         //Succesfull
 
+                        mProgressBar.setVisibility(View.INVISIBLE);
                         Intent intent = new  Intent(SignUpActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
