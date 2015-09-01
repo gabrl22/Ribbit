@@ -3,6 +3,7 @@ package com.example.gabriel.ribbit;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -39,7 +40,15 @@ public class EditFriendsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_friends);
         ButterKnife.bind(this);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.appbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
 
 
     }
@@ -140,5 +149,7 @@ public class EditFriendsActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 }

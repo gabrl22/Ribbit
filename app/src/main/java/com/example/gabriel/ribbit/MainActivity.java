@@ -1,10 +1,13 @@
 package com.example.gabriel.ribbit;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -14,7 +17,7 @@ import android.view.MenuItem;
 import com.parse.ParseUser;
 
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -26,6 +29,33 @@ public class MainActivity extends AppCompatActivity  {
      */
 
     public static final String TAG = MainActivity.class.getSimpleName();
+    public static final int TAKE_PICTURE_REQUEST = 0;
+    public static final int TAKE_VIDEO_REQUEST = 1;
+    public static final int CHOOSE_PICTURE_REQUEST = 2;
+    public static final int CHOOSE_VIDEO_REQUEST = 3;
+    protected DialogInterface.OnClickListener mDialogListener =
+            new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case 0://Take picture
+                            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            startActivityForResult(takePictureIntent, TAKE_PICTURE_REQUEST);
+                            break;
+                        case 1://Take Video
+                            Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                            startActivityForResult(takeVideoIntent, TAKE_VIDEO_REQUEST);
+                            break;
+                        case 2://Choose Picture
+                           /* Intent choosePictureIntent = new Intent(MediaStore.INTENT_ACTION_MEDIA_SEARCH);
+                            startActivityForResult(choosePictureIntent, CHOOSE_PICTURE_REQUEST);*/
+                            break;
+                        case 3://Choose video
+                            break;
+
+                    }
+                }
+            };
 
 
     /**
@@ -51,10 +81,9 @@ public class MainActivity extends AppCompatActivity  {
 
         ParseUser currentUser = ParseUser.getCurrentUser();
 
-        if(currentUser == null) {
+        if (currentUser == null) {
             startLogInActivity();
-        }
-        else {
+        } else {
             Log.i(TAG, currentUser.toString());
         }
 
@@ -82,18 +111,25 @@ public class MainActivity extends AppCompatActivity  {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        switch (id) {
+            case R.id.action_settings:
+                ParseUser.logOut();
+
+                startLogInActivity();
+                break;
+            case R.id.action_edit_friends:
+                Intent intent = new Intent(this, EditFriendsActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.action_take_a_picture:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setItems(R.array.camera_choices, mDialogListener);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+        }
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            ParseUser.logOut();
 
-            startLogInActivity();
-
-            return true;
-        }
-        else if( id == R.id.action_edit_friends){
-            Intent intent = new Intent(this, EditFriendsActivity.class);
-            startActivity(intent);
-        }
 
         return super.onOptionsItemSelected(item);
     }

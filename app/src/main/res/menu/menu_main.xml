@@ -17,4 +17,11 @@
         android:icon="@drawable/account_circle"
         app:showAsAction="never"
         />
+    <item
+        android:id="@+id/action_take_a_picture"
+        android:title="@string/camera_label"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_photo_camera_white_24dp"
+        app:showAsAction="always"
+        />
 </menu>
