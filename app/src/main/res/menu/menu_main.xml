@@ -14,7 +14,7 @@
         android:id="@+id/action_edit_friends"
         android:title="@string/edit_friends_label"
         android:orderInCategory="100"
-        android:icon="@drawable/account_circle"
+
         app:showAsAction="never"
         />
     <item
