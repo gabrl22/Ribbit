@@ -227,10 +227,19 @@ public class MainActivity extends AppCompatActivity {
             else {
                 Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
                 mediaScanIntent.setData(mMediaUri);
+
                 sendBroadcast(mediaScanIntent);
             }
             Intent recipientsIntent = new Intent(this, RecipientActivity.class);
             recipientsIntent.setData(mMediaUri);
+            String fileType;
+            if (requestCode == TAKE_PICTURE_REQUEST || requestCode == CHOOSE_PICTURE_REQUEST){
+                fileType = ParseConstants.FILE_TYPE_IMAGE;
+            }
+            else{
+                fileType = ParseConstants.FILE_TYPE_VIDEO;
+            }
+            recipientsIntent.putExtra(ParseConstants.KEY_FILE_TYPE,fileType);
             startActivity(recipientsIntent);
         } else if (resultCode != RESULT_CANCELED) {
             Toast.makeText(this, R.string.general_error, Toast.LENGTH_LONG).show();

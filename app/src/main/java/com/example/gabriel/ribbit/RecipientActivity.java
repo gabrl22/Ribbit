@@ -1,8 +1,9 @@
 package com.example.gabriel.ribbit;
 
 import android.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -15,11 +16,11 @@ import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
-import org.w3c.dom.Text;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -33,6 +34,8 @@ public class RecipientActivity extends AppCompatActivity {
     protected ParseRelation<ParseUser> mFriendsRelation;
     protected ParseUser mCurrentUser;
     protected MenuItem mSendMenuItem;
+    protected Uri mMediaUri;
+    protected String mFileType;
 
     @Bind(R.id.listview)ListView mListView;
     @Bind(R.id.empty)TextView mTextView;
@@ -42,6 +45,10 @@ public class RecipientActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipient);
         ButterKnife.bind(this);
+
+        mMediaUri = getIntent().getData();
+        mFileType = getIntent().getExtras().getString(ParseConstants.KEY_FILE_TYPE);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(toolbar);
@@ -86,7 +93,7 @@ public class RecipientActivity extends AppCompatActivity {
                             android.R.layout.simple_list_item_checked,
                             usernames
                     );
-                    if (usernames.length == 0){
+                    if (usernames.length == 0) {
                         mTextView.setVisibility(View.VISIBLE);
                     }
                     mListView.setAdapter(adapter);
@@ -120,10 +127,33 @@ public class RecipientActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_send) {
+
+            ParseObject message = createMessage();
+            //send(message);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    protected ParseObject createMessage(){
+        ParseObject message = new ParseObject(ParseConstants.CLASS_MESSAGES);
+        message.put(ParseConstants.KEY_SENDER_ID, ParseUser.getCurrentUser().getObjectId());
+        message.put(ParseConstants.KEY_SENDER_NAME, ParseUser.getCurrentUser().getUsername());
+        message.put(ParseConstants.KEY_RECIPIENT_IDS, getRecipientIds());
+        message.put(ParseConstants.KEY_FILE_TYPE, mFileType);
+
+        return message;
+    }
+
+    protected ArrayList<String> getRecipientIds(){
+        ArrayList<String> recipentIds = new ArrayList<String>();
+        for(int i = 0; i<mListView.getCount(); i++){
+            if(mListView.isItemChecked(i)){
+                recipentIds.add(mParseUsers.get(i).getObjectId());
+            }
+        }
+        return recipentIds;
     }
 }
