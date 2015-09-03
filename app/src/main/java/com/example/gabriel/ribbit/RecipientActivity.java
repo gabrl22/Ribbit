@@ -54,7 +54,13 @@ public class RecipientActivity extends AppCompatActivity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mSendMenuItem.setVisible(true);
+
+                if(mListView.getCheckedItemCount() > 0){
+                    mSendMenuItem.setVisible(true);
+                }
+                else {
+                    mSendMenuItem.setVisible(false);
+                }
             }
         });
     }
