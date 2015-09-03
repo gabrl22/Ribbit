@@ -27,6 +27,7 @@ public class FriendsFragment extends ListFragment {
     protected List<ParseUser> mParseUsers;
     protected ParseRelation<ParseUser> mFriendsRelation;
     protected ParseUser mCurrentUser;
+
     public static FriendsFragment newInstance() {
         FriendsFragment fragment = new FriendsFragment();
         return fragment;

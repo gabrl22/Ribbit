@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -34,6 +35,7 @@ public class EditFriendsActivity extends AppCompatActivity {
     ProgressBar mProgressBar;
     @Bind(R.id.listview)
     ListView mListView;
+    @Bind(R.id.empty)TextView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class EditFriendsActivity extends AppCompatActivity {
         mFriendsRelation = mCurrentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
         mProgressBar.setVisibility(View.VISIBLE);
         mListView.setVisibility(View.INVISIBLE);
+        mTextView.setVisibility(View.INVISIBLE);
 
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         query.orderByAscending(ParseConstants.KEY_USERNAME);
@@ -89,6 +92,9 @@ public class EditFriendsActivity extends AppCompatActivity {
                             usernames
                     );
                     mListView.setAdapter(adapter);
+                    if(usernames.length == 0){
+                        mTextView.setVisibility(View.VISIBLE);
+                    }
                     addFriendsCheckmark();
                     mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override

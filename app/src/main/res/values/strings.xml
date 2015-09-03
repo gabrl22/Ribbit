@@ -40,4 +40,6 @@
         <item>Chosse Picture</item>
         <item>Choose Video</item>
     </string-array>
+    <string name="title_activity_recipient">Choose Recipients</string>
+    <string name="action_send">Send</string>
 </resources>
