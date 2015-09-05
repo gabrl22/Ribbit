@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.gabriel.ribbit.adapters.MiFragmentPagerAdapter;
 import com.parse.ParseUser;
 
 import java.io.File;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int FILE_SIZE_LIMIT = 1024*2014*10;//10mb
 
     protected Uri mMediaUri;
+
 
     protected DialogInterface.OnClickListener mDialogListener =
             new DialogInterface.OnClickListener() {
@@ -181,6 +183,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

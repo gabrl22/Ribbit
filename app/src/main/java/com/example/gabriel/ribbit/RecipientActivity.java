@@ -13,12 +13,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.gabriel.ribbit.helper_methods.FileHelper;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +41,10 @@ public class RecipientActivity extends AppCompatActivity {
     protected Uri mMediaUri;
     protected String mFileType;
 
-    @Bind(R.id.listview)ListView mListView;
-    @Bind(R.id.empty)TextView mTextView;
+    @Bind(R.id.listview)
+    ListView mListView;
+    @Bind(R.id.empty)
+    TextView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +68,9 @@ public class RecipientActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if(mListView.getCheckedItemCount() > 0){
+                if (mListView.getCheckedItemCount() > 0) {
                     mSendMenuItem.setVisible(true);
-                }
-                else {
+                } else {
                     mSendMenuItem.setVisible(false);
                 }
             }
@@ -130,30 +135,74 @@ public class RecipientActivity extends AppCompatActivity {
         if (id == R.id.action_send) {
 
             ParseObject message = createMessage();
-            //send(message);
+            if (message == null) {
+                //error
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(getString(R.string.error_selecting_file));
+                builder.setTitle(getString(R.string.sorry));
+                builder.setPositiveButton(android.R.string.ok, null);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            } else {
+                send(message);
+                finish();
+            }
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    protected ParseObject createMessage(){
+    protected ParseObject createMessage() {
         ParseObject message = new ParseObject(ParseConstants.CLASS_MESSAGES);
         message.put(ParseConstants.KEY_SENDER_ID, ParseUser.getCurrentUser().getObjectId());
         message.put(ParseConstants.KEY_SENDER_NAME, ParseUser.getCurrentUser().getUsername());
         message.put(ParseConstants.KEY_RECIPIENT_IDS, getRecipientIds());
         message.put(ParseConstants.KEY_FILE_TYPE, mFileType);
 
-        return message;
+        byte[] fileBytes = FileHelper.getByteArrayFromFile(this, mMediaUri);
+        if (fileBytes == null) {
+            return null;
+        } else {
+            if (mFileType.equals(ParseConstants.FILE_TYPE_IMAGE)) {
+                fileBytes = FileHelper.reduceImageForUpload(fileBytes);
+            }
+            String fileName = FileHelper.getFileName(this, mMediaUri, mFileType);
+            ParseFile file = new ParseFile(fileName, fileBytes);
+            message.put(ParseConstants.KEY_FILE, file);
+            return message;
+        }
+
+
     }
 
-    protected ArrayList<String> getRecipientIds(){
+    protected ArrayList<String> getRecipientIds() {
         ArrayList<String> recipentIds = new ArrayList<String>();
-        for(int i = 0; i<mListView.getCount(); i++){
-            if(mListView.isItemChecked(i)){
+        for (int i = 0; i < mListView.getCount(); i++) {
+            if (mListView.isItemChecked(i)) {
                 recipentIds.add(mParseUsers.get(i).getObjectId());
             }
         }
         return recipentIds;
+    }
+
+    protected void send(ParseObject message) {
+        message.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+
+                if (e == null) {
+                    //Succesfull
+                    Toast.makeText(RecipientActivity.this, "Message Sent", Toast.LENGTH_LONG).show();
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RecipientActivity.this);
+                    builder.setMessage(getString(R.string.error_sending_message));
+                    builder.setTitle(getString(R.string.sorry));
+                    builder.setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+            }
+        });
     }
 }
