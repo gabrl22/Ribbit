@@ -13,7 +13,7 @@
     <string name="username_hint">Username</string>
     <string name="password_hint">Password</string>
     <string name="login_button_label">Log In</string>
-    <string name="sign_label">Sign Up</string>
+    <string name="sign_label">Don\'t have an account? Sign Up</string>
     <string name="title_activity_sign_up">Sign up</string>
     <string name="sign_up_button_label">Sign up</string>
     <string name="email_hint">Email</string>
@@ -46,4 +46,7 @@
     <string name="sorry">Sorry</string>
     <string name="error_sending_message">There was an error sending your message</string>
     <string name="title_activity_view_image">Ribbit</string>
+    <string name="cds_background">Ribbit frog image background</string>
+    <string name="subtitle">A Treehouse proyect</string>
+    <string name="cancel_signup">Cancel</string>
 </resources>
