@@ -1,14 +1,92 @@
 <resources>
 
     <!-- Base application theme. -->
+    <style name="Theme.Ribbit" parent="Widget.AppCompat.Toolbar">
+        <item name="actionBarItemBackground">@drawable/selectable_background_ribbit</item>
+        <item name="popupMenuStyle">@style/PopupMenu.Ribbit</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.Ribbit</item>
+        <item name="actionBarTabStyle">@style/ActionBarTabStyle.Ribbit</item>
+        <item name="actionDropDownStyle">@style/DropDownNav.Ribbit</item>
+        <item name="actionBarStyle">@style/ActionBar.Solid.Ribbit</item>
+        <item name="actionModeBackground">@drawable/cab_background_top_ribbit</item>
+        <item name="actionModeSplitBackground">@drawable/cab_background_bottom_ribbit</item>
+        <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Ribbit</item>
+    </style>
+    -
+
+    <style name="ActionBar.Solid.Ribbit" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="background">@drawable/ab_solid_ribbit</item>
+        <item name="backgroundStacked">@drawable/ab_stacked_solid_ribbit</item>
+        <item name="backgroundSplit">@drawable/ab_bottom_solid_ribbit</item>
+        <item name="progressBarStyle">@style/ProgressBar.Ribbit</item>
+    </style>
+    -
+
+    <style name="ActionBar.Transparent.Ribbit" parent="@style/Widget.AppCompat.Light.ActionBar">
+        <item name="background">@drawable/ab_transparent_ribbit</item>
+        <item name="progressBarStyle">@style/ProgressBar.Ribbit</item>
+    </style>
+    -
+
+    <style name="PopupMenu.Ribbit" parent="@style/Widget.AppCompat.Light.PopupMenu">
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_ribbit</item>
+    </style>
+    -
+
+    <style name="DropDownListView.Ribbit" parent="@style/Widget.AppCompat.Light.ListView.DropDown">
+        <item name="android:listSelector">@drawable/selectable_background_ribbit</item>
+    </style>
+    -
+
+    <style name="ActionBarTabStyle.Ribbit" parent="@style/Widget.AppCompat.Light.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab_ribbit</item>
+    </style>
+    -
+
+    <style name="DropDownNav.Ribbit" parent="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
+        <item name="android:background">@drawable/spinner_background_ab_ribbit</item>
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_ribbit</item>
+        <item name="android:dropDownSelector">@drawable/selectable_background_ribbit</item>
+    </style>
+    -
+
+    <style name="ProgressBar.Ribbit" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal_ribbit</item>
+    </style>
+    -
+
+    <style name="ActionButton.CloseMode.Ribbit" parent="@style/Widget.AppCompat.Light.ActionButton.CloseMode">
+        <item name="android:background">@drawable/btn_cab_done_ribbit</item>
+    </style>
+    - <!--  this style is only referenced in a Light.DarkActionBar based theme
+  -->
+    -
+
+    <style name="Theme.Ribbit.Widget" parent="@style/Theme.AppCompat">
+        <item name="popupMenuStyle">@style/PopupMenu.Ribbit</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.Ribbit</item>
+    </style>
+
+
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
         <item name="android:editTextBackground">@drawable/apptheme_edit_text_holo_light</item>
-        <item name="colorPrimary">#ffffff</item>
+        <item name="colorPrimary">#7E5FAD</item>
         <item name="colorPrimaryDark">#533680</item>
+        <item name="android:textColorPrimary">@color/background_purple</item>
+        <item name="actionMenuTextColor">@color/background_purple</item>
         <item name="android:imageButtonStyle">@style/ImageButtonAppTheme</item>
 
+    </style>
+    <style name="Widget.MyApp.ActionBar" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">#ffffff</item>
+        <item name="theme">@style/ThemeOverlay.MyApp.ActionBar</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+
+    <style name="ThemeOverlay.MyApp.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">@color/background_purple</item>
     </style>
 
     <style name="AuthBackground">
@@ -34,6 +112,7 @@
         <item name="android:textSize">60sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="AuthSubTitle" parent="AuthTitle">
         <item name="android:layout_below">@+id/title</item>
         <item name="android:layout_alignParentTop">false</item>
@@ -50,6 +129,7 @@
         <item name="android:textColorHint">@color/light_grey</item>
         <item name="android:textSize">18sp</item>
     </style>
+
     <style name="FieldsContainer">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -60,6 +140,7 @@
         <item name="android:orientation">vertical</item>
         <item name="android:padding">8dp</item>
     </style>
+
     <style name="AuthButtons">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
