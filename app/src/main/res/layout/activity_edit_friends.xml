@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.gabriel.ribbit.EditFriendsActivity">
+    tools:context="com.example.gabriel.ribbit.ui.EditFriendsActivity">
 
     <include
         android:id="@+id/appbar"
@@ -15,7 +15,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
 
-                    tools:context="com.example.gabriel.ribbit.EditFriendsActivity">
+                    tools:context="com.example.gabriel.ribbit.ui.EditFriendsActivity">
 
 
         <ProgressBar

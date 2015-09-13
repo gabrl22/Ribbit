@@ -1,4 +1,4 @@
-package com.example.gabriel.ribbit;
+package com.example.gabriel.ribbit.ui;
 
 import android.app.AlertDialog;
 import android.net.Uri;
@@ -15,6 +15,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gabriel.ribbit.ParseConstants;
+import com.example.gabriel.ribbit.R;
 import com.example.gabriel.ribbit.helper_methods.FileHelper;
 import com.parse.FindCallback;
 import com.parse.ParseException;

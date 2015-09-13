@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.gabriel.ribbit.LoginActivity"
+    tools:context="com.example.gabriel.ribbit.ui.LoginActivity"
     >
 
 
@@ -16,11 +16,7 @@
 
         <ImageView
             android:id="@+id/background_imageview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/cds_background"
-            android:scaleType="fitStart"
-            android:src="@drawable/background"/>
+            style="@style/AuthBackgroundImage"/>
 
         <TextView
             android:id="@+id/title"

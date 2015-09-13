@@ -1,4 +1,4 @@
-package com.example.gabriel.ribbit;
+package com.example.gabriel.ribbit.ui;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.gabriel.ribbit.ParseConstants;
+import com.example.gabriel.ribbit.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -31,6 +33,7 @@ public class EditFriendsActivity extends AppCompatActivity {
     protected List<ParseUser> mParseUsers;
     protected ParseRelation<ParseUser> mFriendsRelation;
     protected ParseUser mCurrentUser;
+
     @Bind(R.id.progressBar)
     ProgressBar mProgressBar;
     @Bind(R.id.listview)
@@ -45,6 +48,10 @@ public class EditFriendsActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(toolbar);
+
+
+
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

@@ -1,4 +1,4 @@
-package com.example.gabriel.ribbit;
+package com.example.gabriel.ribbit.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.gabriel.ribbit.ParseConstants;
+import com.example.gabriel.ribbit.R;
 import com.example.gabriel.ribbit.adapters.MiFragmentPagerAdapter;
 import com.parse.ParseUser;
 
@@ -165,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(toolbar);
+        //toolbar.setTitleTextColor(R.color.background_purple);
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(new MiFragmentPagerAdapter(MainActivity.this,
                 getSupportFragmentManager()));

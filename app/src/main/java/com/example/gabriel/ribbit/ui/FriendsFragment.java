@@ -1,4 +1,4 @@
-package com.example.gabriel.ribbit;
+package com.example.gabriel.ribbit.ui;
 
 
 import android.app.AlertDialog;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
+import com.example.gabriel.ribbit.ParseConstants;
+import com.example.gabriel.ribbit.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseRelation;

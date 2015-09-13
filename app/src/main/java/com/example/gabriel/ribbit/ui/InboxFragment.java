@@ -1,14 +1,17 @@
-package com.example.gabriel.ribbit;
+package com.example.gabriel.ribbit.ui;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.example.gabriel.ribbit.ParseConstants;
+import com.example.gabriel.ribbit.R;
 import com.example.gabriel.ribbit.adapters.InboxAdapter;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -25,6 +28,9 @@ import java.util.List;
  */
 public class InboxFragment extends ListFragment {
 
+    //@Bind(R.id.swipe_refresh_container)SwipeRefreshLayout mSwipeRefreshLayout;
+    protected SwipeRefreshLayout mSwipeRefreshLayout;
+
     protected List<ParseObject> mMessages;
 
     public static InboxFragment newInstance() {
@@ -40,24 +46,43 @@ public class InboxFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.inbox_fragment, container, false);
+        //ButterKnife.bind(getActivity());
+        mSwipeRefreshLayout = (SwipeRefreshLayout)rootView.findViewById(R.id.swipe_refresh_container);
+        mSwipeRefreshLayout.setOnRefreshListener(mOnRefreshListener);
+        mSwipeRefreshLayout.setColorSchemeColors(
+                R.color.swipe_refresh1,
+                R.color.swipe_refresh2,
+                R.color.swipe_refresh3,
+                R.color.swipe_refresh4
+        );
         return rootView;
     }
     @Override
     public void onResume() {
         super.onResume();
 
+        retrieveMessages();
+
+    }
+
+    private void retrieveMessages() {
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(ParseConstants.CLASS_MESSAGES);
         query.whereEqualTo(ParseConstants.KEY_RECIPIENT_IDS, ParseUser.getCurrentUser().getObjectId());
         query.addDescendingOrder(ParseConstants.KEY_CREATED_AT);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> messages, ParseException e) {
+
+                if(mSwipeRefreshLayout.isRefreshing()){
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
                 if(e == null){
                     //We found messages
                     mMessages = messages;
@@ -80,7 +105,6 @@ public class InboxFragment extends ListFragment {
                 }
             }
         });
-
     }
 
     @Override
@@ -120,4 +144,14 @@ public class InboxFragment extends ListFragment {
         }
 
     }
+    protected SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+
+            retrieveMessages();
+            //Toast.makeText(getActivity(),"Refreshing", Toast.LENGTH_LONG ).show();
+        }
+    };
+
+
 }

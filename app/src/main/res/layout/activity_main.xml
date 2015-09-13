@@ -24,6 +24,8 @@
             android:id="@+id/appbartabs"
 
             android:background="#7E5FAD"
+            app:tabIndicatorColor="@color/background_purple"
+            app:tabIndicatorHeight="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

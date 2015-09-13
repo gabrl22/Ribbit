@@ -1,4 +1,4 @@
-package com.example.gabriel.ribbit;
+package com.example.gabriel.ribbit.ui;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
+import com.example.gabriel.ribbit.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.Timer;

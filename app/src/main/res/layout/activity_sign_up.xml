@@ -4,16 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.gabriel.ribbit.SignUpActivity"
-
-    >
+    tools:context="com.example.gabriel.ribbit.ui.SignUpActivity">
 
 
     <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    style="@style/AuthBackground"
-        >
+                    style="@style/AuthBackground">
         <ImageView
             android:id="@+id/background_imageview"
             style="@style/AuthBackgroundImage"/>

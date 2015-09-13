@@ -5,8 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.gabriel.ribbit.FriendsFragment;
-import com.example.gabriel.ribbit.InboxFragment;
+import com.example.gabriel.ribbit.ui.FriendsFragment;
+import com.example.gabriel.ribbit.ui.InboxFragment;
 import com.example.gabriel.ribbit.R;
 
 /**

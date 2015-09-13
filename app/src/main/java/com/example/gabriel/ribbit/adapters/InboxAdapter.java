@@ -1,6 +1,7 @@
 package com.example.gabriel.ribbit.adapters;
 
 import android.content.Context;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,13 +50,18 @@ public class InboxAdapter extends ArrayAdapter<ParseObject> {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
         ParseObject message = mMessages.get(position);
+        Date createdAt = message.getCreatedAt();
+        long now = new Date().getTime();
+        String convertedDate = DateUtils.getRelativeTimeSpanString(createdAt.getTime(),
+                now, DateUtils.SECOND_IN_MILLIS).toString();
 
         if (message.getString(ParseConstants.KEY_FILE_TYPE).equals(ParseConstants.FILE_TYPE_IMAGE)) {
 
-            holder.iconImageView.setImageResource(R.drawable.ic_photo_black_24dp);
+            holder.iconImageView.setImageResource(R.drawable.ic_picture);
         } else {
-            holder.iconImageView.setImageResource(R.drawable.ic_play_circle_filled_black_24dp);
+            holder.iconImageView.setImageResource(R.drawable.ic_video);
         }
 
 
@@ -63,8 +69,8 @@ public class InboxAdapter extends ArrayAdapter<ParseObject> {
         String time = date.toString();
 
         holder.nameLabel.setText(message.getString(ParseConstants.KEY_SENDER_NAME));
-        holder.timeLabel.setText(message.getString(ParseConstants.KEY_MESSAGE_CREATED));
-        //holder.timeLabel.setText(time);
+        //holder.timeLabel.setText(message.getString(ParseConstants.KEY_MESSAGE_CREATED));
+        holder.timeLabel.setText(convertedDate);
         return convertView;
     }
 
