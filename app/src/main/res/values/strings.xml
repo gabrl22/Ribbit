@@ -50,4 +50,6 @@
     <string name="subtitle">A Treehouse proyect</string>
     <string name="cancel_signup">Cancel</string>
     <string name="cds_message_icon">meesage icon</string>
+    <string name="cds_user_avatar">User avatar</string>
+    <string name="cds_user_checkmark">User checkmark image</string>
 </resources>

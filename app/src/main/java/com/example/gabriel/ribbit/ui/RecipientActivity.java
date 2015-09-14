@@ -10,13 +10,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gabriel.ribbit.ParseConstants;
 import com.example.gabriel.ribbit.R;
+import com.example.gabriel.ribbit.adapters.UserAdapater;
 import com.example.gabriel.ribbit.helper_methods.FileHelper;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -47,8 +49,8 @@ public class RecipientActivity extends AppCompatActivity {
     protected Uri mMediaUri;
     protected String mFileType;
 
-    @Bind(R.id.listview)
-    ListView mListView;
+    @Bind(R.id.friends_grid)
+    GridView mGridView;
     @Bind(R.id.empty)
     TextView mTextView;
 
@@ -68,19 +70,9 @@ public class RecipientActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        mGridView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                if (mListView.getCheckedItemCount() > 0) {
-                    mSendMenuItem.setVisible(true);
-                } else {
-                    mSendMenuItem.setVisible(false);
-                }
-            }
-        });
+        mGridView.setOnItemClickListener(mOnItemClickListener);
     }
 
     public void onResume() {
@@ -99,15 +91,20 @@ public class RecipientActivity extends AppCompatActivity {
                         usernames[i] = user.getUsername();
                         i++;
                     }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                            RecipientActivity.this,
-                            android.R.layout.simple_list_item_checked,
-                            usernames
-                    );
+
+                    if(mGridView.getAdapter() == null) {
+
+                        UserAdapater adapter = new UserAdapater(RecipientActivity.this, mParseUsers);
+                        mGridView.setAdapter(adapter);
+                    }
+                    else{
+                        //refill the the list
+                        ((UserAdapater)mGridView.getAdapter()).refill(mParseUsers);
+                    }
                     if (usernames.length == 0) {
                         mTextView.setVisibility(View.VISIBLE);
                     }
-                    mListView.setAdapter(adapter);
+
                 } else {
                     Log.e(TAG, e.getMessage());
 
@@ -198,8 +195,8 @@ public class RecipientActivity extends AppCompatActivity {
 
     protected ArrayList<String> getRecipientIds() {
         ArrayList<String> recipentIds = new ArrayList<String>();
-        for (int i = 0; i < mListView.getCount(); i++) {
-            if (mListView.isItemChecked(i)) {
+        for (int i = 0; i < mGridView.getCount(); i++) {
+            if (mGridView.isItemChecked(i)) {
                 recipentIds.add(mParseUsers.get(i).getObjectId());
             }
         }
@@ -225,4 +222,26 @@ public class RecipientActivity extends AppCompatActivity {
             }
         });
     }
+
+    protected AdapterView.OnItemClickListener mOnItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            ImageView checkImageView = (ImageView)view.findViewById(R.id.check_image_view);
+
+            if (mGridView.getCheckedItemCount() > 0) {
+                mSendMenuItem.setVisible(true);
+            } else {
+                mSendMenuItem.setVisible(false);
+            }
+
+            if (mGridView.isItemChecked(position)) {
+
+                checkImageView.setVisibility(View.VISIBLE);
+            } else {
+
+                checkImageView.setVisibility(View.INVISIBLE);
+            }
+
+        }
+    };
 }
