@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.example.gabriel.ribbit.R;
+import com.example.gabriel.ribbit.RibbitApplication;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
@@ -58,7 +59,7 @@ public class SignUpActivity extends AppCompatActivity {
         else{
             //create the new user
             mProgressBar.setVisibility(View.VISIBLE);
-            ParseUser newUser = new ParseUser();
+            final ParseUser newUser = new ParseUser();
             newUser.setUsername(userName);
             newUser.setPassword(password);
             newUser.setEmail(email);
@@ -68,6 +69,7 @@ public class SignUpActivity extends AppCompatActivity {
                 public void done(ParseException e) {
                     if(e == null){
                         //Succesfull
+                        RibbitApplication.updateParseInstalation(ParseUser.getCurrentUser());
 
                         mProgressBar.setVisibility(View.INVISIBLE);
                         Intent intent = new  Intent(SignUpActivity.this, MainActivity.class);

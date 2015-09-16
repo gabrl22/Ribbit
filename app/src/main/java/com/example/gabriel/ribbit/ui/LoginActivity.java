@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.gabriel.ribbit.R;
+import com.example.gabriel.ribbit.RibbitApplication;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -76,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (e == null) {
                         //Succesfull
+                        RibbitApplication.updateParseInstalation(parseUser);
                         Intent intent = new  Intent(LoginActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

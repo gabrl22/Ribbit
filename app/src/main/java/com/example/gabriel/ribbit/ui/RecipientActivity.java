@@ -23,7 +23,10 @@ import com.example.gabriel.ribbit.helper_methods.FileHelper;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
+import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -211,6 +214,7 @@ public class RecipientActivity extends AppCompatActivity {
                 if (e == null) {
                     //Succesfull
                     Toast.makeText(RecipientActivity.this, "Message Sent", Toast.LENGTH_LONG).show();
+                    SendPushNotification();
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RecipientActivity.this);
                     builder.setMessage(getString(R.string.error_sending_message));
@@ -244,4 +248,14 @@ public class RecipientActivity extends AppCompatActivity {
 
         }
     };
+    protected void SendPushNotification(){
+        ParseQuery<ParseInstallation> query = ParseInstallation.getQuery();
+        query.whereContainedIn(ParseConstants.KEY_USER_ID, getRecipientIds());
+
+        //send push notification
+        ParsePush push = new ParsePush();
+        push.setQuery(query);
+        push.setMessage(getString(R.string.push_message, ParseUser.getCurrentUser().getUsername()));
+        push.sendInBackground();
+    }
 }

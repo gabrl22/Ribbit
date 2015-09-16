@@ -52,4 +52,5 @@
     <string name="cds_message_icon">meesage icon</string>
     <string name="cds_user_avatar">User avatar</string>
     <string name="cds_user_checkmark">User checkmark image</string>
+    <string name="push_message">"You have a new Ribbit message from %s "</string>
 </resources>
